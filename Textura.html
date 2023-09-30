@@ -10,35 +10,6 @@
         var ctx = myCanvas.getContext("2d");
         var yOffset = 0;
 
-        // Define un patrón de textura que simula la piedra caliza
-        var texturePattern = ctx.createPattern(generateTextureCanvas(), "repeat");
-
-        function generateTextureCanvas() {
-            // Crea un lienzo para el patrón de textura
-            var textureCanvas = document.createElement("canvas");
-            var textureContext = textureCanvas.getContext("2d");
-            textureCanvas.width = 20;
-            textureCanvas.height = 20;
-
-            // Dibuja un patrón de textura similar a la piedra caliza
-            textureContext.fillStyle = "lightgray"; // Color de piedra caliza
-            textureContext.fillRect(0, 0, 20, 20);
-
-            // Agrega algunas grietas o detalles para simular la textura de la piedra caliza
-            textureContext.strokeStyle = "gray";
-            textureContext.lineWidth = 1;
-            textureContext.beginPath();
-            for (var i = 0; i < 20; i += 5) {
-                textureContext.moveTo(i, 0);
-                textureContext.lineTo(i, 20);
-                textureContext.moveTo(0, i);
-                textureContext.lineTo(20, i);
-            }
-            textureContext.stroke();
-
-            return textureCanvas;
-        }
-
         function drawFractal(startX, startY, len, angle, branchWidth) {
             ctx.lineWidth = branchWidth;
 
@@ -46,14 +17,13 @@
             ctx.save();
 
             ctx.strokeStyle = "dark";
+            ctx.fillStyle = "blue";
+
             ctx.translate(startX, startY - yOffset);  // Aplicamos un desplazamiento vertical
             ctx.rotate(angle * Math.PI/150);
-
             ctx.moveTo(0, 0);
             ctx.lineTo(0, -len);
             ctx.stroke();
-
-            ctx.fillStyle = texturePattern; // Aplicamos el patrón de textura similar a la piedra caliza
 
             ctx.shadowBlur = 150;
             ctx.shadowColor = "rgba(0,0,0,0)";
@@ -82,3 +52,4 @@
     </script>
 </body>
 </html>
+
