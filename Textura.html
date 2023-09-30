@@ -10,31 +10,22 @@
         var ctx = myCanvas.getContext("2d");
         var yOffset = 0;
 
-        // Define un patrón de textura que simula la piedra caliza
-        var texturePattern = ctx.createPattern(generateTextureCanvas(), "repeat");
+        // Define un patrón de textura que simula la apariencia de ladrillos
+        var texturePattern = ctx.createPattern(generateBrickTextureCanvas(), "repeat");
 
-        function generateTextureCanvas() {
-            // Crea un lienzo para el patrón de textura
+        function generateBrickTextureCanvas() {
+            // Crea un lienzo para el patrón de textura de ladrillo
             var textureCanvas = document.createElement("canvas");
             var textureContext = textureCanvas.getContext("2d");
             textureCanvas.width = 20;
             textureCanvas.height = 20;
 
-            // Dibuja un patrón de textura similar a la piedra caliza
-            textureContext.fillStyle = "lightgray"; // Color de piedra caliza
+            // Dibuja un patrón de textura similar a ladrillos
+            textureContext.fillStyle = "red"; // Color de ladrillo
             textureContext.fillRect(0, 0, 20, 20);
 
-            // Agrega algunas grietas o detalles para simular la textura de la piedra caliza
-            textureContext.strokeStyle = "gray";
-            textureContext.lineWidth = 1;
-            textureContext.beginPath();
-            for (var i = 0; i < 20; i += 5) {
-                textureContext.moveTo(i, 0);
-                textureContext.lineTo(i, 20);
-                textureContext.moveTo(0, i);
-                textureContext.lineTo(20, i);
-            }
-            textureContext.stroke();
+            textureContext.fillStyle = "black"; // Color de las juntas entre ladrillos
+            textureContext.fillRect(4, 4, 12, 12);
 
             return textureCanvas;
         }
@@ -53,7 +44,7 @@
             ctx.lineTo(0, -len);
             ctx.stroke();
 
-            ctx.fillStyle = texturePattern; // Aplicamos el patrón de textura similar a la piedra caliza
+            ctx.strokeStyle = texturePattern; // Aplicamos el patrón de textura similar a ladrillos
 
             ctx.shadowBlur = 150;
             ctx.shadowColor = "rgba(0,0,0,0)";
