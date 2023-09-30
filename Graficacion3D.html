@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <canvas id="my_canvas" width="1000" height="800"></canvas>
+    <script>
+        var myCanvas = document.getElementById("my_canvas");
+        var ctx = myCanvas.getContext("2d");
+        var yOffset = 0;
+
+        function drawFractal(startX, startY, len, angle, branchWidth) {
+            ctx.lineWidth = branchWidth;
+
+            ctx.beginPath();
+            ctx.save();
+
+            ctx.strokeStyle = "dark";
+            ctx.fillStyle = "blue";
+
+            ctx.translate(startX, startY - yOffset);  // Aplicamos un desplazamiento vertical
+            ctx.rotate(angle * Math.PI/150);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, -len);
+            ctx.stroke();
+
+            ctx.shadowBlur = 150;
+            ctx.shadowColor = "rgba(0,0,0,0)";
+
+            if (len < 15) {
+                ctx.restore();
+                return;
+            }
+
+            drawFractal(0, -len, len * 0.8, angle - 50, branchWidth * 0.50);
+            drawFractal(0, -len, len * 0.8, angle + 50, branchWidth * 0.50);
+
+            ctx.restore();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            drawFractal(400, 500, 120, 0, 10);
+            drawFractal(400, 500, 120, 0, 10);
+            drawFractal(400, 500, 120, 0, 10);
+            yOffset += 1;  // Incrementa el desplazamiento vertical para la animación
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
 
