@@ -10,7 +10,7 @@
         var ctx = myCanvas.getContext("2d");
         var yOffset = 0;
 
-        // Define un patrón de textura
+        // Define un patrón de textura que simula la piedra caliza
         var texturePattern = ctx.createPattern(generateTextureCanvas(), "repeat");
 
         function generateTextureCanvas() {
@@ -20,13 +20,22 @@
             textureCanvas.width = 20;
             textureCanvas.height = 20;
 
-            // Dibuja un patrón simple (en este caso, líneas diagonales)
-            textureContext.strokeStyle = "brown"; // Color de madera
-            textureContext.lineWidth = 2;
-            textureContext.moveTo(0, 0);
-            textureContext.lineTo(20, 20);
+            // Dibuja un patrón de textura similar a la piedra caliza
+            textureContext.fillStyle = "lightgray"; // Color de piedra caliza
+            textureContext.fillRect(0, 0, 20, 20);
+
+            // Agrega algunas grietas o detalles para simular la textura de la piedra caliza
+            textureContext.strokeStyle = "gray";
+            textureContext.lineWidth = 1;
+            textureContext.beginPath();
+            for (var i = 0; i < 20; i += 5) {
+                textureContext.moveTo(i, 0);
+                textureContext.lineTo(i, 20);
+                textureContext.moveTo(0, i);
+                textureContext.lineTo(20, i);
+            }
             textureContext.stroke();
-            
+
             return textureCanvas;
         }
 
@@ -44,7 +53,7 @@
             ctx.lineTo(0, -len);
             ctx.stroke();
 
-            ctx.fillStyle = texturePattern; // Aplicamos el patrón de textura
+            ctx.fillStyle = texturePattern; // Aplicamos el patrón de textura similar a la piedra caliza
 
             ctx.shadowBlur = 150;
             ctx.shadowColor = "rgba(0,0,0,0)";
