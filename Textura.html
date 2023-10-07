@@ -10,6 +10,10 @@
         var ctx = myCanvas.getContext("2d");
         var yOffset = 0;
 
+        // Agregar un color de fondo al lienzo
+        ctx.fillStyle = "lightgray"; // Cambia el color de fondo a tu preferencia
+        ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
+
         function drawFractal(startX, startY, len, angle, branchWidth) {
             ctx.lineWidth = branchWidth;
 
@@ -41,9 +45,17 @@
 
         function animate() {
             ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            // Agregar un color de fondo nuevamente para cada fotograma
+            ctx.fillStyle = "lightgray"; // Cambia el color de fondo a tu preferencia
+            ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
             drawFractal(400, 500, 120, 0, 10);
             drawFractal(400, 500, 120, 0, 10);
             drawFractal(400, 500, 120, 0, 10);
             yOffset += 1;  // Incrementa el desplazamiento vertical para la animación
             requestAnimationFrame(animate);
         }
+
+        animate();
+    </script>
+</body>
+</html>
