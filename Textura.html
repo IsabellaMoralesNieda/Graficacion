@@ -2,19 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: url("C:\Users\Drobe\Downloads\madera.jpg") no-repeat;
-            background-size: cover;
-        }
-
-        #my_canvas {
-            display: block;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body>
     <canvas id="my_canvas" width="1000" height="800"></canvas>
@@ -23,23 +10,30 @@
         var ctx = myCanvas.getContext("2d");
         var yOffset = 0;
 
+        // Cargar la imagen de textura
+        var textureImage = new Image();
+        textureImage.src = 'C:\Users\Drobe\Downloads\madera.jpg'; // ruta  de imagen
+
+        textureImage.onload = function() {
+            // Una vez que la imagen de textura se ha cargado, comienza la animación
+            animate();
+        };
+
         function drawFractal(startX, startY, len, angle, branchWidth) {
             ctx.lineWidth = branchWidth;
 
             ctx.beginPath();
             ctx.save();
 
-            ctx.strokeStyle = "dark";
-            ctx.fillStyle = "blue";
+            // Usar la imagen de textura como patrón
+            var texture = ctx.createPattern(textureImage, 'repeat');
+            ctx.fillStyle = texture;
 
             ctx.translate(startX, startY - yOffset);  // Aplicamos un desplazamiento vertical
             ctx.rotate(angle * Math.PI/150);
             ctx.moveTo(0, 0);
             ctx.lineTo(0, -len);
-            ctx.stroke();
-
-            ctx.shadowBlur = 150;
-            ctx.shadowColor = "rgba(0,0,0,0)";
+            ctx.fill();
 
             if (len < 15) {
                 ctx.restore();
@@ -60,8 +54,6 @@
             yOffset += 1;  // Incrementa el desplazamiento vertical para la animación
             requestAnimationFrame(animate);
         }
-
-        animate();
     </script>
 </body>
 </html>
